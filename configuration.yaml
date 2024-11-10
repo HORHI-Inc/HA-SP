@@ -1,0 +1,160 @@
+homeassistant:
+  name: SunflowerPark
+  latitude: !secret latitude_coord
+  longitude: !secret longitude_coord
+  elevation: !secret elevation_coord
+  unit_system: metric
+  time_zone: Europe/Moscow
+  
+  packages: !include_dir_merge_named packages
+# Customization file
+#  customize: !include_dir_merge_named includes/customize
+# Customization
+#  auth_providers:
+#    - type: homeassistant
+#    - type: trusted_networks
+#      trusted_networks:
+#        - 127.0.0.1
+#        - "::1"
+#        - "fd00::/8"
+#
+# Загрузка интеграционных настроек по умолчанию. Не удалять.
+default_config:
+
+# Загрузка тем фронтенда из папки themes
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/custom-brand-icons/custom-brand-icons.js
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+
+
+    
+    
+#whitelist_external_dirs:
+#   - /config
+config:
+logbook:
+history:
+#  include:
+#    entities:
+#      - sensor.maria_db_size
+
+
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+
+
+# Text to speech
+# tts:
+#   - platform: google_translate
+  
+#   - platform: reversotts
+#     language: 'Alyona-Russian'
+#     pitch: "100"
+#     bitrate: "128k"
+
+#Вынос во внешние файлы и папки
+#timer: !include includes/timer.yaml
+#group: !include includes/groups.yaml
+
+#appliance: !include includes/appliance.yaml
+
+#recorder: !include includes/recorder.yaml
+sensor: !include_dir_merge_list includes/sensor
+switch: !include_dir_merge_list includes/switches
+
+
+
+
+
+
+#climate:
+#  - platform: miheater
+#    host: 192.168.1.126
+#    token: 353b39809003b838e338bafc6a8d74fb
+#    name: xiaomi_heater_bedroom
+#    model: zhimi.heater.zb1
+#  - platform: miheater
+#    host: 192.168.1.118
+#    token: 54d54caaa0fd5ceda71fe966ecb9708f
+#    name: mi_heater_kidroom
+#    model: zhimi.heater.zb1
+
+panel_custom:
+  - name: server_state
+    sidebar_title: 'Система'
+    sidebar_icon: mdi:server
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'hassio/system'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
+      
+
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret api_key_bot
+    allowed_chat_ids:
+     - !secret telegram_id_horhi
+#     - !secret telegram_id_atevs
+#     - !secret telegram_id_kate
+
+notify:
+  - name: telegram_id_horhi
+    platform: telegram
+    chat_id: !secret telegram_id_horhi
+    
+##  - name: telegram_id_atevs
+##    platform: telegram
+##    chat_id: !secret telegram_id_atevs
+     
+# Интерфейс Lovelace
+# ########################################
+# ###             Lovelace             ###
+# ########################################
+
+lovelace:
+  mode: yaml
+  resources:
+   - url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
+     type: module
+   - url: /hacsfiles/stack-in-card/stack-in-card.js
+     type: module
+   - url: /hacsfiles/lovelace-card-mod/card-mod.js
+     type: module
+   - url: /hacsfiles/lovelace-mushroom/mushroom.js
+     type: module
+   - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+     type: module
+   - url: /hacsfiles/battery-state-card/battery-state-card.js
+     type: module
+   - url: /hacsfiles/timer-bar-card/timer-bar-card.js
+     type: module
+   - url: /hacsfiles/lovelace-plotly-graph-card/plotly-graph-card.js
+     type: module                
+   - url: /hacsfiles/power-flow-card-plus/power-flow-card-plus.js
+     type: module
+   - url: /hacsfiles/ha-sankey-chart/ha-sankey-chart.js
+     type: module
+   - url: /hacsfiles/lovelace-layout-card/layout-card.js
+     type: module
+   - url: /hacsfiles/custom-brand-icons/custom-brand-icons.js
+     type: module
+   - url: /hacsfiles/mini-graph-card-bundle.js
+     type: module
+   - url: /local/custom-lovelace/weather-chart-card.js
+     type: module
