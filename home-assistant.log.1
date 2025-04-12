@@ -1,0 +1,233 @@
+2025-04-12 12:45:23.741 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-04-12 12:45:23.744 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration vakio_atmosphere which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-04-12 12:45:23.745 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration gismeteo which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-04-12 12:45:23.746 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration yandex_station which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-04-12 12:45:25.337 WARNING (MainThread) [homeassistant.core_config] Package weather contains invalid customize
+2025-04-12 12:45:33.290 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:45:34.322 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:45:34.323 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:45:39.323 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:45:40.689 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:45:40.697 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:45:44.894 WARNING (MainThread) [homeassistant.components.ssdp] Could not set up UPnP/SSDP server, as a presentation URL could not be determined; Please configure your internal URL in the Home Assistant general configuration
+2025-04-12 12:45:47.636 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('ValueError: Template error: as_timestamp got invalid input 'Never' when rendering template '{% if state_attr("sensor.backup_state","last_backup") %} {{as_timestamp(state_attr("sensor.backup_state","last_backup"))|timestamp_custom("%d.%m.%Y %H:%M")}} {% else %}  Получение данных... {% endif %}' but no default was specified') while processing template 'Template<template=({% if state_attr("sensor.backup_state","last_backup") %} {{as_timestamp(state_attr("sensor.backup_state","last_backup"))|timestamp_custom("%d.%m.%Y %H:%M")}} {% else %}  Получение данных... {% endif %}) renders=6>' for attribute '_attr_native_value' in entity 'sensor.last_google_backup_main'
+2025-04-12 12:45:49.932 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:45:52.153 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:45:52.153 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:45:57.155 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:45:58.512 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:45:58.517 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:47:09.135 WARNING (MainThread) [bluetooth_auto_recovery.recover] There are no BT controllers present in the system!
+2025-04-12 12:47:09.136 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not find adapter with mac address 00:00:00:00:00:00 or hci0
+2025-04-12 12:48:34.391 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:48:35.000 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:48:35.001 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:48:40.002 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:48:41.359 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:48:41.363 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:50:06.661 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:50:07.509 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:50:07.509 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:50:12.510 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:50:13.873 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:50:13.878 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:51:39.210 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:51:40.013 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:51:40.013 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:51:45.015 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:51:46.383 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:51:46.387 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:53:11.821 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:53:12.540 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:53:12.541 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:53:17.542 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:53:18.895 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:53:18.899 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:55:59.388 WARNING (MainThread) [bluetooth_auto_recovery.recover] There are no BT controllers present in the system!
+2025-04-12 12:55:59.389 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not find adapter with mac address 00:00:00:00:00:00 or hci0
+2025-04-12 12:57:24.660 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:57:25.456 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:57:25.457 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:57:30.457 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:57:31.823 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:57:31.828 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 12:58:57.310 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:58:57.984 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 12:58:57.985 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 12:59:02.987 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 12:59:04.366 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 12:59:04.371 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 13:01:45.159 WARNING (MainThread) [bluetooth_auto_recovery.recover] There are no BT controllers present in the system!
+2025-04-12 13:01:45.159 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not find adapter with mac address 00:00:00:00:00:00 or hci0
+2025-04-12 13:03:10.432 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 13:03:10.978 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 13:03:10.978 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 13:03:15.979 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 13:03:17.359 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 13:03:17.363 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor
+2025-04-12 13:04:42.477 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not determine the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 13:04:43.549 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not cycle the Bluetooth adapter hci0 [00:00:00:00:00:00] (0): [Errno 19] No such device
+2025-04-12 13:04:43.549 WARNING (MainThread) [bluetooth_auto_recovery.recover] Bluetooth management socket connection lost: [Errno 22] Invalid argument
+2025-04-12 13:04:48.550 WARNING (MainThread) [bluetooth_auto_recovery.recover] Could not reset the power state of the Bluetooth adapter hci0 [00:00:00:00:00:00] (0) due to timeout after 5 seconds
+2025-04-12 13:04:49.934 ERROR (MainThread) [bluetooth_auto_recovery.recover] Unexpected error while attempting USB reset of hci0: [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/bluetooth_auto_recovery/recover.py", line 600, in _usb_reset_adapter
+    return await dev.async_reset()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 49, in async_reset
+    return await asyncio.get_running_loop().run_in_executor(None, self.reset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 56, in reset
+    return self.usb_device.reset()
+           ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/usb_devices/__init__.py", line 141, in reset
+    return ioctl(usb_dev, USBDEVFS_RESET, 0) > -1
+           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2025-04-12 13:04:49.936 WARNING (MainThread) [bluetooth_auto_recovery.recover] Closing Bluetooth adapter hci0 [00:00:00:00:00:00] failed: [Errno 9] Bad file descriptor

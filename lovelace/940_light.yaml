@@ -1,0 +1,41 @@
+title: Освещение
+icon: mdi:lightbulb-group
+
+      
+cards:
+
+  - type: vertical-stack
+    cards:
+    - type: markdown
+      content: >
+         **Панель переключателей** 
+         
+    - type: entities
+      show_header_toggle: false
+      entities:          
+        - entity: switch.0xa4c1386a3c30771e
+          name: Санузел основной свет
+        - entity: switch.0xa4c1382023a756d9_l1
+          name: Санузел амбилайт
+        - entity: light.0xa4c138b8f79f87d7
+          name: Контурное освещение двери
+        - entity: switch.0xa4c1383ab3f314eb
+          name: Контурное освещение дома
+        - entity: switch.0xa4c1383ab3f314eb
+  - type: vertical-stack
+    cards:
+    - type: markdown
+      content: >
+         **Светильники**    
+          
+    - type: horizontal-stack
+      cards:
+        - type: light
+          entity: light.yeelight_650
+          name: Люстра 650
+        - type: light
+          entity: light.yeelight_650_nightlight
+          name: Ночник 650
+        - type: light
+          entity: light.yeelight_650_ambilight
+          name: Ambilight 650#

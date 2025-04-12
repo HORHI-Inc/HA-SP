@@ -1,0 +1,88 @@
+blueprint:
+  name: Авто-выключение света
+  description: Выключает свет при отсутствии движения.
+  domain: automation
+  
+  input:
+    motion_entity:
+      name: Датчик движения
+      description: Датчик движения и выключения света.
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    light_off_entity:
+      name: Датчик выключенного света
+      description: Датчик, который фиксирует выключенный свет.
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: light
+    light_on_entity:
+      name: Датчик включенного света
+      description: Датчик, который фиксирует включенный свет при отсутствии движения.
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: light
+    timer_entity:
+      name: Таймер
+      description: Время ожидания перед выключением света.
+      selector:
+        entity:
+          domain: timer
+    light_target:
+      name: Управляемый свет
+      selector:
+        target:
+          entity:
+            domain: light
+            
+mode: restart
+max_exceeded: silent
+
+trigger:
+  # 1. Если датчик движения фиксирует движение
+  - platform: state
+    entity_id: !input motion_entity
+    from: "off"
+    to: "on"
+  # 2. Если датчик света фиксирует включённый свет
+  - platform: state
+    entity_id: !input light_on_entity
+
+action:
+  choose:
+    # 1. Если движение обнаружено, а свет выключен → включить свет
+    - conditions:
+        - condition: state
+          entity_id: !input light_off_entity
+          state: 'on'
+      sequence:
+        - service: light.turn_on
+          target: !input light_target
+          
+    # 2. Если движения нет, но свет включён → запустить таймер и затем выключить свет
+    - conditions:
+        - condition: state
+          entity_id: !input light_on_entity
+          state: 'on'
+      sequence:
+        - service: timer.start
+          entity_id: !input timer_entity
+        - wait_for_trigger:
+            platform: event
+            event_type: timer.finished
+            event_data:
+              entity_id: !input timer_entity
+        - service: light.turn_off
+          target: !input light_target
+          
+    # 3. Если движения нет, и свет выключен → отменить таймер
+    - conditions:
+        - condition: state
+          entity_id: !input light_on_entity
+          state: 'off'
+      sequence:
+        - service: timer.cancel
+          entity_id: !input timer_entity

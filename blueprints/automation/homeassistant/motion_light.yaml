@@ -1,0 +1,55 @@
+blueprint:
+  name: Освещение по датчику движения
+  description: Включает свет при обнаружении движения.
+  domain: automation
+  source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/motion_light.yaml
+
+input:
+  motion_entity:
+    name: Датчик движения
+    selector:
+      entity:
+        domain: binary_sensor
+        device_class: motion
+  light_target:
+    name: Свет
+    selector:
+      target:
+        entity:
+          domain: light
+  no_motion_wait:
+    name: Время ожидания
+    description: Время, в течение которого свет остаётся включённым после последнего обнаруженного движения.
+    default: 120
+    selector:
+      number:
+        min: 0
+        max: 3600
+        unit_of_measurement: seconds
+
+# Если движение обнаруживается во время задержки,
+# сценарий запускается заново.
+mode: restart
+max_exceeded: silent
+
+trigger:
+  platform: state
+  entity_id: !input motion_entity
+  from: "off"
+  to: "on"
+
+action:
+  - alias: "Включить свет"
+    service: light.turn_on
+    target: !input light_target
+  - alias: "Ожидать, пока движение не прекратится"
+    wait_for_trigger:
+      platform: state
+      entity_id: !input motion_entity
+      from: "on"
+      to: "off"
+  - alias: "Подождать заданное количество секунд"
+    delay: !input no_motion_wait
+  - alias: "Выключить свет"
+    service: light.turn_off
+    target: !input light_target

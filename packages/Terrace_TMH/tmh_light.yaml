@@ -1,0 +1,141 @@
+# packages/Terrace_TMH/tmh_light.yaml
+# Пакет для управления освещением на терассе
+
+tmh_light:
+
+    # Настройки кастомизации (изменение названий и иконок для удобного отображения в интерфейсе)
+    homeassistant:
+      customize:
+
+        switch.osveshchenie_vkhodnoi_dveri_konturnoe:
+          friendly_name: Освещение Дома контурное верхнее 
+          icon: phu:light-strip
+
+
+    binary_sensor:
+    # Сенсоры времени
+      - platform: tod
+        name: tmh_light_day
+        after: '09:00'
+        before: '20:00'
+        
+      - platform: tod
+        name: tmh_light_night
+        after: '23:00'
+        before: '07:00'
+
+    
+    # Сенсор автоотключения света 
+      - platform: template
+        sensors:
+          tmh_light:
+            friendly_name: "Автоотключение"
+            value_template: >-
+              {{ is_state('switch.osveshchenie_vkhodnoi_dveri_konturnoe', 'on')  
+                 and is_state('binary_sensor.0xa4c138897a98bdfe_occupancy', 'off')  }}
+            icon_template: >-
+              {% if is_state("binary_sensor.tmh_light", "on") %}
+              mdi:timer
+              {% else %}
+              mdi:timer-off
+              {% endif %}
+
+
+    timer:
+        
+          tmh_light:
+            name: Освещение выкл через -
+            duration: '00:10:00'        
+
+
+    automation:
+
+        # Включение освещения 
+        - alias: tmh_light_on
+          initial_state: true
+          trigger:
+        # Выключатель в кухне-гостинной !!!(временное решение выключатель в спальне)!!!
+          - platform: state
+            entity_id: switch.0xa4c13829a9b13acf_right
+            to: 'on'
+        ## Датчик движения
+          - platform: state
+            entity_id: binary_sensor.0xa4c138897a98bdfe_occupancy
+            to: 'on'
+          condition:
+          - condition: state
+            entity_id: switch.osveshchenie_vkhodnoi_dveri_konturnoe
+            state: 'off'
+            # Условие: если день, не включать освещение
+          - condition: state
+            entity_id: binary_sensor.tmh_light_day
+            state: 'off'  # Если день (световой день, sensor.tmh_light_day 'on'), освещение не включается
+          action:
+          - service: switch.turn_on
+            entity_id:
+              - switch.osveshchenie_vkhodnoi_dveri_konturnoe
+
+        # Выключение освещения 
+        - alias: tmh_light_off
+          initial_state: true
+          trigger:
+        # Выключатель в кухне-гостинной !!!(временное решение выключатель в спальне)!!!
+          - platform: state
+            entity_id: switch.0xa4c13829a9b13acf_right
+            to: 'off'
+        # Таймер
+          - platform: event
+            event_type: timer.finished
+            event_data:
+              entity_id: timer.tmh_light
+          condition:
+          - condition: state
+            entity_id: switch.osveshchenie_vkhodnoi_dveri_konturnoe
+            state: 'on'
+          action:
+          - service: switch.turn_off
+            entity_id:
+              - switch.osveshchenie_vkhodnoi_dveri_konturnoe
+
+        ## Таймер автоотключения
+        - alias: tmh_light_timer_on
+          initial_state: true
+          trigger:
+        # Условия для запуска таймера освещения
+          - platform: state
+            entity_id: binary_sensor.tmh_light
+            to: 'on'
+          action:
+            service: timer.start
+            entity_id: timer.tmh_light
+            data_template: 
+                duration: > 
+                 {%- if states("binary_sensor.tmh_light_night") == 'on' -%}
+                 00:10:00
+                 {%- elif states("binary_sensor.tmh_light_day") == 'on'  -%}
+                 00:01:00
+                 {%- else -%}
+                 00:05:00
+                 {% endif %} 
+                 
+        # Сброс таймера при выключении
+        - alias: tmh_light_timer_off
+          initial_state: true
+          trigger:
+          - platform: state
+            entity_id: binary_sensor.tmh_light
+            to: 'off'
+          action:
+          - service: timer.cancel
+            entity_id: timer.tmh_light
+       
+       
+
+
+
+
+
+
+
+
+

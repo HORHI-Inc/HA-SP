@@ -1,0 +1,14 @@
+- id: Сжатие базы
+  alias: purge_everyday
+  description: Сжатие базы
+  trigger:
+  - platform: time
+    at: 01:00:00
+  condition: []
+  action:
+  - service: recorder.purge
+    data:
+      repack: true
+      keep_days: 3
+  mode: single
+  initial_state: true

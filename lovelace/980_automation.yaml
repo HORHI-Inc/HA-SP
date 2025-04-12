@@ -1,0 +1,133 @@
+title: Automation
+icon: mdi:home-automation
+
+cards:
+###############################################################################
+  - type: vertical-stack
+    cards:
+
+        - type: markdown
+          content: >
+             **Автоматизация освещения Терассы**
+
+        - type: entities
+          show_header_toggle: false
+          entities:
+             - entity: sensor.sun_next_rising
+#               name: 
+             - entity: sensor.sun_next_setting
+#               name: 
+             - entity: sensor.sun_next_setting
+#               name: 
+             - entity: sensor.sun_next_midnight
+#               name: 
+
+
+
+
+
+
+
+###############################################################################
+  - type: vertical-stack
+    cards:
+
+        - type: markdown
+          content: >
+             **Автоматизация освещения Терассы**
+
+        - type: entities
+          show_header_toggle: false
+          entities:
+             - entity: switch.osveshchenie_vkhodnoi_dveri_konturnoe
+               name: Освещение Дома контурное верхнее
+             - entity: binary_sensor.0xa4c138897a98bdfe_occupancy
+               name: Датчик присутствия Терраса
+             - entity: switch.0xa4c13829a9b13acf_right
+               name: Выключатель Спальная Right
+             - entity: binary_sensor.tmh_light
+             - entity: binary_sensor.tmh_light_day
+               name: День
+             - entity: binary_sensor.tmh_light_night
+               name: Ночь
+             - entity: timer.tmh_light
+
+###############################################################################
+  - type: vertical-stack
+    cards:
+
+        - type: markdown
+          content: >
+             **Автоматизация освещения Санузла**
+
+        - type: entities
+          show_header_toggle: false
+          entities:
+             - entity: switch.0xa4c1386a3c30771e
+             - entity: switch.0x00124b0026b81138
+             - entity: sensor.0xa4c138c986975f7f_state
+             - entity: binary_sensor.bt_light
+             - entity: binary_sensor.bt_light_day
+               name: День
+             - entity: binary_sensor.bt_light_night
+               name: Ночь
+             - entity: timer.bt_light
+
+###############################################################################
+#  - type: vertical-stack
+#    cards:
+#
+#        - type: markdown
+#          content: >
+#             **Бинарные сенсоры**
+#
+#        - type: custom:auto-entities
+#          show_empty: true
+#          card:
+#            type: entities
+#            show_header_toggle: false
+#          filter:
+#            include:
+#             - domain: binary_sensor
+#
+#        - type: markdown
+#          content: >
+#             **Светильники**
+#
+#        - type: custom:auto-entities
+#          show_empty: true
+#          card:
+#            type: entities
+#            show_header_toggle: false
+#          filter:
+#            include:
+#             - domain: light
+#
+#        - type: markdown
+#          content: >
+#             **Все розетки**
+#
+#        - type: custom:auto-entities
+#          show_empty: true
+#          card:
+#            type: entities
+#            show_header_toggle: false
+#          filter:
+#            include:
+#             - domain: switch
+#
+#        - type: markdown
+#          content: >
+#             **Активные розетки**
+#
+#        - type: custom:auto-entities
+#          show_empty: true
+#          card:
+#            type: entities
+#            show_header_toggle: false
+#          filter:
+#            include:
+#             - domain: switch
+#               state: 'on'
+#               options:
+#                 secondary_info: last-changed

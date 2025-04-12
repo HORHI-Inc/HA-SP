@@ -46,14 +46,21 @@ history:
 
 
 
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
+
 
 http:
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
+#   use_x_forwarded_for: true
+#   trusted_proxies:
+#     - 127.0.0.1
+#     - ::1
+#   ip_ban_enabled: true
+#   login_attempts_threshold: 5
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: sunflowerpark.duckdns.org:8123
 
 
 # Text to speech
@@ -154,7 +161,10 @@ lovelace:
      type: module
    - url: /hacsfiles/custom-brand-icons/custom-brand-icons.js
      type: module
-   - url: /hacsfiles/mini-graph-card-bundle.js
+   - url: /hacsfiles/mini-graph-card/mini-graph-card.js
      type: module
-   - url: /local/custom-lovelace/weather-chart-card.js
+   - url: /hacsfiles/weather-chart-card/weather-chart-card.js
      type: module
+   - url: /local/weather-card-chart/weather-card-chart.js
+     type: module
+

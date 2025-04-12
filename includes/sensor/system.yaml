@@ -1,0 +1,51 @@
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'time_date'
+
+# Ругается на systemmonitor необходимо найти альтернативу!
+#  - platform: systemmonitor
+#    resources:
+#    - type: processor_use
+#    - type: disk_use_percent
+#      arg: /
+#    - type: memory_use_percent
+#    - type: last_boot
+#    - type: disk_free
+#      arg: /
+
+#  - platform: sql
+#    db_url: !secret db_link
+#    queries:
+#      - name: 2MariaDB size
+#        query: SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="hasp_db" GROUP BY table_schema;
+#        column: value
+#        unit_of_measurement: MB
+
+#  - platform: uptime
+#    name: online
+# Вместо online сенсора создал интеграцию sensor.uptime, еще не уверен толи время она показывает.
+
+
+ # Время с последней перезагрузки сервера
+  - platform: template
+    sensors:
+      last_boot_custom:
+        friendly_name: "Последняя перезагрузка"
+        value_template: >
+           {% set s = (as_timestamp(now()) | round(default=0) | int - as_timestamp(states('sensor.last_boot')) | int) %}
+           {{ '{:d} дн. {:02d}:{:02d}:{:02d}'.format (s // 86400, s % 86400 // 3600, s % 3600 // 60, s % 60) }}
+        icon_template: mdi:clock
+        
+ # Время с последней перезагрузки Home Assistant
+  - platform: template
+    sensors:
+      online_custom:
+        friendly_name: "Последняя перезагрузка Home Assistant"
+        value_template: >
+               {% set s = (as_timestamp(now()) | round(default=0) | int - as_timestamp(states('sensor.uptime')) | int) %}
+               {{ '{:d} дн. {:02d}:{:02d}:{:02d}'.format (s // 86400, s % 86400 // 3600, s % 3600 // 60, s % 60) }}
+        icon_template: mdi:clock
+        
+        

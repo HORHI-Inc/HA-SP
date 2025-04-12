@@ -1,0 +1,31 @@
+#     db_url: !secret db_link
+#     include:
+# #        domains:
+# #          - switch
+# #          - light
+
+#         entities: 
+# # Объем БД
+#           - sensor.maria_db_size
+          
+# # Сенсоры температуры и влажности
+
+
+# # Сенсоры мощности
+
+
+# # Тестовый сенсор
+# #          - binary_sensor.0xa4c138e46e958394_contact#
+
+#     exclude:
+#       domains:
+#         - automation
+#         - updater
+#       entity_globs:
+#         - sensor.weather_*
+#       entities:
+#         - sun.sun # Don't record sun data
+#         - sensor.last_boot # Comes from 'systemmonitor' sensor platform
+#         - sensor.date
+#       event_types:
+#         - call_service # Don't record service calls

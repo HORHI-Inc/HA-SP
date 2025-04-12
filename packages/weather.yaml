@@ -1,0 +1,88 @@
+weather:
+    homeassistant:
+      
+      gismeteo:
+        sweet_home:
+      
+        dacha:
+          name: Our Country House
+          latitude: !secret latitude_coord
+          longitude: !secret longitude_coord
+          add_sensors: yes
+          forecast_days: 2
+
+
+#     name: Sunflower Park
+#     add_sensors: yes
+#     forecast_days: 3
+
+
+# sensor:
+#     # Gismeteo sensors
+#   - platform: gismeteo
+#     forecast: true
+#     monitored_conditions:
+#       - condition
+#       - temperature
+#       - temperature_feels_like
+#       - wind_speed
+#       - wind_bearing
+#       - humidity
+#       - pressure
+#       - clouds
+#       - rain
+#       - snow
+#       - storm
+#       - geomagnetic
+#       - water_temperature
+    
+    
+#   - platform: average
+#     name: 'Average Temperature'
+#     duration:
+#       days: 3
+#     entities:
+#       - sensor.gismeteo_temperature
+#       - sensor.narodmon_temperature
+
+## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
+#    sensor:
+#    # Перевод в мм. рт. столба
+#      - platform: template
+#        sensors:
+#          0x00158d0001a4b9da_pressure_mmhg:
+#            friendly_name: "Атмосферное давление на улице"
+#            unit_of_measurement: 'mmHg'
+#            value_template: "{{ (states('sensor.0x00158d0001a4b9da_pressure')|float * 0.7500637)|round(2) }}"
+#            icon_template: mdi:gauge
+
+# script:
+#   climate_report:
+#     alias: Отчет о погоде
+#     sequence:
+#      - service: notify.telegram_id_horhi
+#       data:
+#          message: | 
+#              {{"\U0001F3E0"}} Климат отчет за {{ states('sensor.time_date') }}
+#              {{"\U0001F321"}} Температура - {{ states('sensor.0xa4c138edecfd9027_temperature') }} C
+#              {{"\U0001F32B"}} Влажность - {{ states('sensor.0xa4c138edecfd9027_humidity') }} %
+#              {{"\U0001F4AA"}} Давление - {{ states('sensor.название_сенсора_давления') }} мм рт. ст
+#              {{"\U00002600"}} Погода - {{ states('sensor.gismeteo_condition') }}
+#              {{"\U00002B50"}} Прогноз на сегодня - {{ states('sensor.gismeteo_temperature') }} C
+#              {{"\U0001F327"}} Прогноз дождя - {{ states('sensor.gismeteo_rain') }}
+#              {{"\U0001F328"}} Прогноз снега - {{ states('sensor.gismeteo_snow') }}  
+
+# automation:   
+#   - id: Запрос на отчет о погоде
+#     alias: send_climate_report
+#     initial_state: true
+#     trigger:
+#     - platform: event
+#       event_type: telegram_command
+#       event_data:
+#         command: '/forecast'
+#     - platform: time
+#       at: '07:30:00'              
+#     action:
+#      - service: script.turn_on
+#       entity_id: script.climate_report

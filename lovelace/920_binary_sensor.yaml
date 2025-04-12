@@ -1,0 +1,22 @@
+title: Датчики
+icon: mdi:all-inclusive
+
+cards:
+  
+  - type: vertical-stack    
+    cards:
+      - type: glance
+        title: Сенсоры 1
+        show_state: true
+        entities:
+           - entity: binary_sensor.0xa4c138e46e958394_contact
+             name: Дверь входная
+             
+  - type: vertical-stack    
+    cards:
+      - type: glance
+        title: Сенсоры 2
+        show_state: true
+        entities:
+           - entity: binary_sensor.0xa4c138c986975f7f_presence
+             name: Датчик присутствия Санузел                 

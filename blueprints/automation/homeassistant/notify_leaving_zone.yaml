@@ -1,0 +1,51 @@
+blueprint:
+  name: Уведомление о выходе из зоны
+  description: Отправляет уведомление на устройство, когда человек покидает определённую зону.
+  domain: automation
+  source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/notify_leaving_zone.yaml
+
+  input:
+    person_entity:
+      name: Человек
+      selector:
+        entity:
+          domain: person
+    zone_entity:
+      name: Зона
+      selector:
+        entity:
+          domain: zone
+    notify_device:
+      name: Устройство для уведомлений
+      description: Устройство должно поддерживать официальное приложение Home Assistant для получения уведомлений.
+      selector:
+        device:
+          integration: mobile_app
+
+trigger:
+  # Триггер срабатывает при изменении состояния указанного человека
+  platform: state
+  entity_id: !input person_entity
+
+variables:
+  zone_entity: !input zone_entity
+  # Получаем имя зоны, в которой находится человек
+  zone_state: "{{ states[zone_entity].name }}"
+  person_entity: !input person_entity
+  # Получаем имя человека
+  person_name: "{{ states[person_entity].name }}"
+
+condition:
+  condition: template
+  # Проверяем, действительно ли человек покинул зону
+  # Первый случай - выход из домашней зоны ('home')
+  # Второй случай - выход из любой другой зоны
+  value_template: "{{ zone_entity == 'zone.home' and trigger.from_state.state == 'home' and trigger.to_state.state != 'home' or trigger.from_state.state == zone_state and trigger.to_state.state != zone_state }}"
+
+action:
+  - alias: "Отправить уведомление о выходе из зоны"
+    domain: mobile_app
+    type: notify
+    device_id: !input notify_device
+    # Формируем текст уведомления
+    message: "{{ person_name }} покинул(а) {{ zone_state }}"

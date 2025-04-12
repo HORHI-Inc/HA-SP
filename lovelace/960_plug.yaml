@@ -1,0 +1,31 @@
+title: Розетки
+icon: mdi:power-socket-eu
+cards:
+- type: vertical-stack
+  cards:
+      - entity: switch.0x00158d00036be83d
+        type: custom:multiple-entity-row
+        icon: mdi:power-socket-eu
+        toggle: true
+        state_color: true
+        name: Розетка Xiaomi ZigBee
+        secondary_info: last-changed
+        state_header: Состояние          
+        entities:
+          - entity: sensor.0x00158d00036be83d_power
+            name: Мощность           
+          - entity: sensor.0x00158d00036be83d_energy
+            name: Потребление             
+      - entity: switch.0x00158d00036be83d
+        type: custom:multiple-entity-row
+        icon: mdi:power-socket-eu
+        toggle: true
+        state_color: true
+        name: Розетка Xiaomi WiFi
+        secondary_info: last-changed
+        state_header: Состояние          
+        entities:
+          - entity: sensor.0x00158d00036be83d_power
+            name: Мощность           
+          - entity: sensor.0x00158d00036be83d_energy
+            name: Потребление             

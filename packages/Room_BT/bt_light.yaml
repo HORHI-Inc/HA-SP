@@ -1,0 +1,153 @@
+# packages/Room_BT/bt_light.yaml
+# Пакет для автоматического управления контурным освещением в санузле
+# Условия: включение при обнаружении присутствия после 21:00, автоотключение через таймер
+
+bt_light:
+
+  # --- 1. КАСТОМИЗАЦИЯ ---
+  # Настройка отображения объектов в интерфейсе Home Assistant
+  homeassistant:
+    customize:
+      switch.0x00124b0026b81138:
+        friendly_name: "Контурное освещение в санузле"
+        icon: phu:light-strip  # Иконка светодиодной ленты
+
+      sensor.0xa4c138c986975f7f_state:
+        friendly_name: "Датчик присутствия в санузле"
+        icon: mdi:walk  # Иконка шагающего человечка
+
+      switch.0xa4c1386a3c30771e:
+        friendly_name: "Выключатель в санузле"
+        icon: mdi:power  # Иконка выключателя питания
+
+  # --- 2. СЕНСОРЫ ---
+  binary_sensor:
+
+    # Сенсор времени суток — активен между 21:00 и 07:00
+    - platform: tod
+      name: bt_light_night
+      after: '21:00'
+      before: '07:00'
+
+    - platform: tod
+      name: tmh_light_day
+      after: '09:00'
+      before: '20:00'
+        
+    # Виртуальный сенсор, определяющий, нужно ли запускать таймер на отключение
+    - platform: template
+      sensors:
+        bt_light:
+          friendly_name: "Автоотключение света в санузле"
+          value_template: >-
+            {{ is_state('switch.0x00124b0026b81138', 'on') and
+               is_state('binary_sensor.0xa4c138c986975f7f_occupancy', 'no_move') }}
+            # Включается, если свет ВКЛЮЧЕН, но датчик не фиксирует присутствие
+
+          icon_template: >-
+            {% if is_state("binary_sensor.bt_light", "on") %}
+              mdi:timer  # Таймер активен
+            {% else %}
+              mdi:timer-off  # Таймер не активен
+            {% endif %}
+
+  # --- 3. ТАЙМЕР ---
+  timer:
+    bt_light:
+      name: Освещение в Санузле выкл через -
+      duration: '00:05:00'
+      # Стандартное время — 5 минут, может быть переопределено автоматизацией
+
+  # --- 4. АВТОМАТИЗАЦИИ ---
+  automation:
+
+    # ВКЛЮЧЕНИЕ ОСВЕЩЕНИЯ
+    - alias: bt_light_on
+      initial_state: true
+      trigger:
+        # Включение при движении
+        - platform: state
+          entity_id: binary_sensor.0xa4c138c986975f7f_occupancy
+          to: 'move'
+
+        # Включение вручную с выключателя
+        - platform: state
+          entity_id: switch.0xa4c1386a3c30771e
+          to: 'on'
+
+      condition:
+        # Свет должен быть выключен, чтобы снова включить
+        - condition: state
+          entity_id: switch.0x00124b0026b81138
+          state: 'off'
+
+        # Включаем только ночью (после 21:00 и до 07:00)
+        - condition: state
+          entity_id: binary_sensor.bt_light_night
+          state: 'on'
+
+      action:
+        # Включаем контурное освещение
+        - service: switch.turn_on
+          entity_id: switch.0x00124b0026b81138
+
+    # ВЫКЛЮЧЕНИЕ ОСВЕЩЕНИЯ
+    - alias: bt_light_off
+      initial_state: true
+      trigger:
+        # Вручную через выключатель
+        - platform: state
+          entity_id: switch.0xa4c1386a3c30771e
+          to: 'off'
+
+        # По завершению таймера
+        - platform: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.bt_light
+
+      condition:
+        # Свет должен быть включён, чтобы его можно было выключить
+        - condition: state
+          entity_id: switch.0x00124b0026b81138
+          state: 'on'
+
+      action:
+        # Выключаем контурное освещение
+        - service: switch.turn_off
+          entity_id: switch.0x00124b0026b81138
+
+    # ЗАПУСК ТАЙМЕРА АВТООТКЛЮЧЕНИЯ
+    - alias: bt_light_timer_on
+      initial_state: true
+      trigger:
+        # Виртуальный сенсор автоотключения стал "on"
+        - platform: state
+          entity_id: binary_sensor.bt_light
+          to: 'on'
+
+      action:
+        # Запускаем таймер с динамической длительностью
+        - service: timer.start
+          entity_id: timer.bt_light
+          data_template:
+            duration: >
+              {% if is_state("binary_sensor.bt_light_night", "on") %}
+                00:05:00  # Ночью оставляем на 5 минут
+              {% else %}
+                00:01:00  # Днём — всего 1 минута
+              {% endif %}
+
+    # СБРОС ТАЙМЕРА ПРИ ВОЗВРАЩЕНИИ ПОЛЬЗОВАТЕЛЯ
+    - alias: bt_light_timer_off
+      initial_state: true
+      trigger:
+        # Виртуальный сенсор стал "off" — кто-то снова появился
+        - platform: state
+          entity_id: binary_sensor.bt_light
+          to: 'off'
+
+      action:
+        # Останавливаем таймер
+        - service: timer.cancel
+          entity_id: timer.bt_light
